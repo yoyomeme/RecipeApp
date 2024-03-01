@@ -43,8 +43,8 @@ Contributions are highly welcome!
 * Testing: Incorporates unit tests and UI tests to detect changes that could break the code design and reduce defects, ensuring code quality.
 
 ## ✨ Requirements
-* iOS 13.0 or later
-* Xcode 13 or later
+* iOS 16.1 or later
+* Xcode 15.2 or later
 
 ## ⚙️ Setup
 1. Clone the project. [here](https://github.com/yoyomeme/RecipeApp.git)
