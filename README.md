@@ -55,7 +55,7 @@ Contributions are highly welcome!
   
 Troubleshooting:
 
-If you have any issues, please consult the FlutterFire documentation to check the issues or create a new one. 
+If you have any issues, please consult me for further details
 
 ## ⚙️ How to use
 RecipeApp is intuitive and easy to use.
