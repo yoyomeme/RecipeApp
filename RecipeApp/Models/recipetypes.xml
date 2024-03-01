@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecipeTypes>
+    <RecipeType id="1">
+        <Name>Appetizers</Name>
+    </RecipeType>
+    <RecipeType id="2">
+        <Name>Main Courses</Name>
+    </RecipeType>
+    <RecipeType id="3">
+        <Name>Desserts</Name>
+    </RecipeType>
+    <RecipeType id="4">
+        <Name>Salads</Name>
+    </RecipeType>
+    <RecipeType id="5">
+        <Name>Soups</Name>
+    </RecipeType>
+</RecipeTypes>
