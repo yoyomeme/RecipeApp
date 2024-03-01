@@ -12,7 +12,7 @@ Contributions are highly welcome!
 
 <a href="https://drive.google.com/file/d/18sy49tN9OuTGA6b2BSEyy3HHYSuPOQOI/view?usp=sharing"><img src="https://playerzon.com/asset/download.png" width="200"></img></a>
 <a href="https://drive.google.com/file/d/yourGoogleDriveFileID/view?usp=sharing">
-  <img src="[https://playerzon.com/asset/download.png](https://static-00.iconduck.com/assets.00/app-ios-icon-2048x607-djvn0n0l.png)" width="200" alt="Download for iOS">
+  <img src="https://static-00.iconduck.com/assets.00/app-ios-icon-2048x607-djvn0n0l.png" width="200" alt="Download for iOS">
 </a>
 
 ## 🖼 Screenshots
