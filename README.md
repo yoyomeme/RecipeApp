@@ -13,11 +13,11 @@ Contributions are highly welcome!
 <a href="https://drive.google.com/file/d/yourGoogleDriveFileID/view?usp=sharing">
   <img src="https://static-00.iconduck.com/assets.00/app-ios-icon-2048x607-djvn0n0l.png" width="200" alt="Download for iOS">
 </a>
-
-## 🖼 Screenshots
 <a href="https://drive.google.com/file/d/yourGoogleDriveFileID/view?usp=sharing">
   <img src="https://github.com/yoyomeme/RecipeApp/assets/48572928/ca6f2e03-db7a-416e-89ac-0f3efb7d3d9e" width="200" alt="icons">
 </a>
+## 🖼 Screenshots
+
 | ![Auth Image](https://github.com/yoyomeme/RecipeApp/assets/48572928/aaa02090-6a0a-490d-b3d4-38ded54d0aed) | ![No Chat Image](https://github.com/yoyomeme/RecipeApp/assets/48572928/8026ba30-dc33-4a94-86f8-686c55d270da) | ![Start Conversation Image](https://github.com/yoyomeme/RecipeApp/assets/48572928/755af382-1060-4ef6-9f17-79481d2c3bcd) |
 |---|---|---|
 | ![Messages Image]([https://github.com/yoyomeme/RecipeApp/assets/48572928/d6602f87-3ed0-495d-9272-72f39b759393](https://github.com/yoyomeme/RecipeApp/assets/48572928/f4ca2321-abdd-40bd-be6f-57cb604d6877)) | ![Chat Voice Modal Image](https://github.com/yoyomeme/RecipeApp/assets/48572928/d6602f87-3ed0-495d-9272-72f39b759393) | ![Chat Image](https://github.com/maykhid/min_chat/blob/main/screenshots/chat.png?raw=true) |
