@@ -1,7 +1,7 @@
 
 ## RecipeApp🍳
 <p float="">
-  <img src= "https://github.com/maykhid/min_chat/blob/main/screenshots/header.png?raw=true" />
+  <img src= "https://github.com/yoyomeme/RecipeApp/GB_images/page1.png?raw=true" />
 </p>
 
 A Recipe application to share your secret recipe.
