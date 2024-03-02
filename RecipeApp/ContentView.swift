@@ -13,23 +13,19 @@ import FirebaseAuth
 struct ContentView: View {
     @State private var userLoggedIn: Bool? // nil for loading, true for logged in, false for not logged in
     
+    
     var body: some View {
         Group {
             if let isLoggedIn = userLoggedIn {
                 if isLoggedIn {
-                    // User is logged in, show TabView
                     TabView {
-                        ViewA()
+                        RecipesView()
                             .tabItem {
                                 Image(systemName: "book.closed.fill")
                                 Text("Recipes")
                             }
-                        ViewB()
-                            .tabItem {
-                                Image(systemName: "plus.square.fill")
-                                Text("Add Recipe")
-                            }
-                        ViewC()
+                       
+                        Settings()
                             .tabItem {
                                 Image(systemName: "gearshape.fill")
                                 Text("Settings")
@@ -47,6 +43,7 @@ struct ContentView: View {
         .onAppear {
             verifyUserAuthentication()
         }
+        
     }
     
     func verifyUserAuthentication() {

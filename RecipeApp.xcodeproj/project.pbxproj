@@ -47,8 +47,8 @@
 		776C99F22B919B7000F9F921 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 776C99ED2B919B7000F9F921 /* UserModel.swift */; };
 		776C99F32B919B7000F9F921 /* Recipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 776C99EE2B919B7000F9F921 /* Recipe.swift */; };
 		776C99F42B919B7000F9F921 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 776C99EF2B919B7000F9F921 /* User.swift */; };
-		776C99F62B919DBC00F9F921 /* ViewA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 776C99F52B919DBC00F9F921 /* ViewA.swift */; };
-		776C99F82B919DCA00F9F921 /* ViewB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 776C99F72B919DCA00F9F921 /* ViewB.swift */; };
+		776C99F62B919DBC00F9F921 /* RecipesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 776C99F52B919DBC00F9F921 /* RecipesView.swift */; };
+		776C99F82B919DCA00F9F921 /* AddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 776C99F72B919DCA00F9F921 /* AddView.swift */; };
 		776C99FA2B91C6F800F9F921 /* UpdateUserDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 776C99F92B91C6F800F9F921 /* UpdateUserDetails.swift */; };
 		776C99FC2B91CBA800F9F921 /* RecipeTypesParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 776C99FB2B91CBA800F9F921 /* RecipeTypesParser.swift */; };
 		776C99FE2B91CD9E00F9F921 /* recipetypes.xml in Resources */ = {isa = PBXBuildFile; fileRef = 776C99FD2B91CD9E00F9F921 /* recipetypes.xml */; };
@@ -57,7 +57,13 @@
 		776C9A042B91DDE100F9F921 /* RecipeTitleRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 776C9A032B91DDE100F9F921 /* RecipeTitleRow.swift */; };
 		776C9A062B92041100F9F921 /* ImageSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 776C9A052B92041100F9F921 /* ImageSelection.swift */; };
 		776C9A082B92043E00F9F921 /* Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 776C9A072B92043E00F9F921 /* Camera.swift */; };
-		776C9A0A2B921A0500F9F921 /* ViewC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 776C9A092B921A0500F9F921 /* ViewC.swift */; };
+		776C9A0A2B921A0500F9F921 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 776C9A092B921A0500F9F921 /* Settings.swift */; };
+		776C9A0D2B92C1E700F9F921 /* RecipeCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 776C9A0C2B92C1E700F9F921 /* RecipeCard.swift */; };
+		776C9A0F2B92CBE900F9F921 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 776C9A0E2B92CBE900F9F921 /* SearchBar.swift */; };
+		776C9A112B92DF0E00F9F921 /* GetRemoteImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 776C9A102B92DF0E00F9F921 /* GetRemoteImage.swift */; };
+		776C9A132B9305A500F9F921 /* NavigationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 776C9A122B9305A500F9F921 /* NavigationManager.swift */; };
+		776C9A152B930FA300F9F921 /* CustomTextFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = 776C9A142B930FA300F9F921 /* CustomTextFields.swift */; };
+		776C9A172B93242C00F9F921 /* RecipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 776C9A162B93242C00F9F921 /* RecipeView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -75,8 +81,8 @@
 		776C99ED2B919B7000F9F921 /* UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		776C99EE2B919B7000F9F921 /* Recipe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Recipe.swift; sourceTree = "<group>"; };
 		776C99EF2B919B7000F9F921 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		776C99F52B919DBC00F9F921 /* ViewA.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewA.swift; sourceTree = "<group>"; };
-		776C99F72B919DCA00F9F921 /* ViewB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewB.swift; sourceTree = "<group>"; };
+		776C99F52B919DBC00F9F921 /* RecipesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesView.swift; sourceTree = "<group>"; };
+		776C99F72B919DCA00F9F921 /* AddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddView.swift; sourceTree = "<group>"; };
 		776C99F92B91C6F800F9F921 /* UpdateUserDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateUserDetails.swift; sourceTree = "<group>"; };
 		776C99FB2B91CBA800F9F921 /* RecipeTypesParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeTypesParser.swift; sourceTree = "<group>"; };
 		776C99FD2B91CD9E00F9F921 /* recipetypes.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = recipetypes.xml; sourceTree = "<group>"; };
@@ -85,8 +91,14 @@
 		776C9A032B91DDE100F9F921 /* RecipeTitleRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeTitleRow.swift; sourceTree = "<group>"; };
 		776C9A052B92041100F9F921 /* ImageSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSelection.swift; sourceTree = "<group>"; };
 		776C9A072B92043E00F9F921 /* Camera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Camera.swift; sourceTree = "<group>"; };
-		776C9A092B921A0500F9F921 /* ViewC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewC.swift; sourceTree = "<group>"; };
+		776C9A092B921A0500F9F921 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		776C9A0B2B92246B00F9F921 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		776C9A0C2B92C1E700F9F921 /* RecipeCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeCard.swift; sourceTree = "<group>"; };
+		776C9A0E2B92CBE900F9F921 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
+		776C9A102B92DF0E00F9F921 /* GetRemoteImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetRemoteImage.swift; sourceTree = "<group>"; };
+		776C9A122B9305A500F9F921 /* NavigationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationManager.swift; sourceTree = "<group>"; };
+		776C9A142B930FA300F9F921 /* CustomTextFields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextFields.swift; sourceTree = "<group>"; };
+		776C9A162B93242C00F9F921 /* RecipeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,9 +161,10 @@
 				776C9A0B2B92246B00F9F921 /* Info.plist */,
 				776C999C2B9199A100F9F921 /* RecipeAppApp.swift */,
 				776C999E2B9199A100F9F921 /* ContentView.swift */,
-				776C99F52B919DBC00F9F921 /* ViewA.swift */,
-				776C99F72B919DCA00F9F921 /* ViewB.swift */,
-				776C9A092B921A0500F9F921 /* ViewC.swift */,
+				776C99F52B919DBC00F9F921 /* RecipesView.swift */,
+				776C9A162B93242C00F9F921 /* RecipeView.swift */,
+				776C99F72B919DCA00F9F921 /* AddView.swift */,
+				776C9A092B921A0500F9F921 /* Settings.swift */,
 				776C99E42B919B1E00F9F921 /* Models */,
 				776C99E32B919B0600F9F921 /* Components */,
 				776C99A02B9199A300F9F921 /* Assets.xcassets */,
@@ -173,7 +186,11 @@
 			isa = PBXGroup;
 			children = (
 				776C99E52B919B5300F9F921 /* CustomTabBar.swift */,
+				776C9A142B930FA300F9F921 /* CustomTextFields.swift */,
+				776C9A0C2B92C1E700F9F921 /* RecipeCard.swift */,
+				776C9A102B92DF0E00F9F921 /* GetRemoteImage.swift */,
 				776C9A052B92041100F9F921 /* ImageSelection.swift */,
+				776C9A0E2B92CBE900F9F921 /* SearchBar.swift */,
 				776C9A072B92043E00F9F921 /* Camera.swift */,
 				776C9A012B91D9CE00F9F921 /* AddRecipe.swift */,
 				776C99FF2B91D52F00F9F921 /* UIPicker.swift */,
@@ -192,6 +209,7 @@
 				776C99FD2B91CD9E00F9F921 /* recipetypes.xml */,
 				776C99EE2B919B7000F9F921 /* Recipe.swift */,
 				776C99EB2B919B7000F9F921 /* RecipeType.swift */,
+				776C9A122B9305A500F9F921 /* NavigationManager.swift */,
 				776C99FB2B91CBA800F9F921 /* RecipeTypesParser.swift */,
 				776C99EF2B919B7000F9F921 /* User.swift */,
 				776C99ED2B919B7000F9F921 /* UserModel.swift */,
@@ -309,20 +327,26 @@
 				776C99F22B919B7000F9F921 /* UserModel.swift in Sources */,
 				776C999D2B9199A100F9F921 /* RecipeAppApp.swift in Sources */,
 				776C99F12B919B7000F9F921 /* DataManager.swift in Sources */,
-				776C99F62B919DBC00F9F921 /* ViewA.swift in Sources */,
+				776C9A172B93242C00F9F921 /* RecipeView.swift in Sources */,
+				776C99F62B919DBC00F9F921 /* RecipesView.swift in Sources */,
 				776C99F02B919B7000F9F921 /* RecipeType.swift in Sources */,
 				776C9A002B91D52F00F9F921 /* UIPicker.swift in Sources */,
-				776C99F82B919DCA00F9F921 /* ViewB.swift in Sources */,
+				776C9A152B930FA300F9F921 /* CustomTextFields.swift in Sources */,
+				776C9A0F2B92CBE900F9F921 /* SearchBar.swift in Sources */,
+				776C99F82B919DCA00F9F921 /* AddView.swift in Sources */,
 				776C99F32B919B7000F9F921 /* Recipe.swift in Sources */,
 				776C99EA2B919B5300F9F921 /* TitleRow.swift in Sources */,
-				776C9A0A2B921A0500F9F921 /* ViewC.swift in Sources */,
+				776C9A0A2B921A0500F9F921 /* Settings.swift in Sources */,
 				776C9A082B92043E00F9F921 /* Camera.swift in Sources */,
 				776C9A022B91D9CE00F9F921 /* AddRecipe.swift in Sources */,
 				776C99FC2B91CBA800F9F921 /* RecipeTypesParser.swift in Sources */,
 				776C99FA2B91C6F800F9F921 /* UpdateUserDetails.swift in Sources */,
 				776C99F42B919B7000F9F921 /* User.swift in Sources */,
 				776C99E92B919B5300F9F921 /* LoginLogout.swift in Sources */,
+				776C9A132B9305A500F9F921 /* NavigationManager.swift in Sources */,
+				776C9A112B92DF0E00F9F921 /* GetRemoteImage.swift in Sources */,
 				776C9A042B91DDE100F9F921 /* RecipeTitleRow.swift in Sources */,
+				776C9A0D2B92C1E700F9F921 /* RecipeCard.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -465,7 +489,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -496,7 +520,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

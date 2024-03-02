@@ -8,7 +8,7 @@
 import SwiftUI
 import PhotosUI
 
-struct ViewB: View {
+struct AddView: View {
     @State private var selectedUIImage: UIImage?
     @State private var ingredients: String = ""
     @State private var steps: String = ""
@@ -18,8 +18,13 @@ struct ViewB: View {
     
     @State private var showAlert = false // State to manage alert visibility
     @State private var alertMessage = "" // State to manage alert message
+    @State private var isUploading = false
+    
+    @Environment(\.presentationMode) var presentationMode
     
     @EnvironmentObject var dataManager: DataManager
+    
+
     
     var body: some View {
         
@@ -30,29 +35,20 @@ struct ViewB: View {
                 endPoint: .bottomTrailing
             )
             .ignoresSafeArea()
+            
+            if isUploading {
+                ProgressView("Uploading...")
+                    .padding()
+            }
             ScrollView {
                 VStack {
                     RecipeTitleRow(title: "Add Recipe")
                     // ImageSelection component for selecting or capturing an image
-                    ImageSelection(selectedImage: $selectedUIImage)
-                        .padding(.bottom) // Add some padding below the image selection
                     
-                    // Name Section
-                    VStack(alignment: .leading) {
-                        Text("Name")
-                            .font(.headline)
-                            .padding(.top)
-                        ZStack(alignment: .topLeading) {
-                            Rectangle()
-                                .frame(height: 100)
-                                .foregroundColor(.white.opacity(0.5)) // Make the rectangle invisible
-                                .border(Color(UIColor.separator), width: 0.5) // Add a border to the rectangle
-                            TextField("Recipe Name", text: $recipeName)
-                                .textFieldStyle(PlainTextFieldStyle()) // Use PlainTextFieldStyle to remove padding
-                                .padding(10) // Add padding inside the ZStack to position the text field correctly
-                        }
-                        .padding(.horizontal)
-                    }
+                    ImageSelection(selectedImage: $selectedUIImage)
+                        .padding(.bottom) 
+                    
+                    CustomTextFields(title: "Name", text: $recipeName)
                     
                     // Recipe Type Section
                     VStack(alignment: .leading) {
@@ -68,39 +64,10 @@ struct ViewB: View {
                         .padding(.horizontal)
                     }
                     
-                    // Ingredients Section
-                    VStack(alignment: .leading) {
-                        Text("Ingredients")
-                            .font(.headline)
-                            .padding(.top)
-                        ZStack(alignment: .topLeading) {
-                            Rectangle()
-                                .frame(height: 100)
-                                .foregroundColor(.white.opacity(0.5)) // Make the rectangle invisible
-                                .border(Color(UIColor.separator), width: 0.5) // Add a border to the rectangle
-                            TextField("Ingredients", text: $ingredients)
-                                .textFieldStyle(PlainTextFieldStyle()) // Use PlainTextFieldStyle to remove padding
-                                .padding(10) // Add padding inside the ZStack to position the text field correctly
-                        }
-                        .padding(.horizontal)
-                    }
+                    CustomTextFields(title: "Ingredients", text: $ingredients)
                     
-                    // Cooking Steps Section
-                    VStack(alignment: .leading) {
-                        Text("Cooking Steps")
-                            .font(.headline)
-                            .padding(.top)
-                        ZStack(alignment: .topLeading) {
-                            Rectangle()
-                                .frame(height: 100)
-                                .foregroundColor(.white.opacity(0.5))
-                                .border(Color(UIColor.separator), width: 0.5) // Add a border to the rectangle
-                            TextField("Cooking Steps", text: $steps)
-                                .textFieldStyle(PlainTextFieldStyle()) // Use PlainTextFieldStyle to remove padding
-                                .padding(10) // Add padding inside the ZStack to position the text field correctly
-                        }
-                        .padding(.horizontal)
-                    }
+                    CustomTextFields(title: "Cooking Steps", text: $steps)
+                    
                 }
                 
                 Spacer()
@@ -131,15 +98,33 @@ struct ViewB: View {
     }
     
     private func addRecipe() {
+        isUploading = true // Start uploading
         dataManager.addRecipe(recipeName: recipeName, ingredients: ingredients, steps: steps, recipeType: selectedRecipeType, selectedImage: selectedUIImage) { success, error in
+            isUploading = false // End uploading
             if success {
+                // Clear the text fields after successful upload
+                recipeName = ""
+                ingredients = ""
+                steps = ""
+                selectedRecipeType = nil
+                selectedUIImage = nil
+                
+                // Optionally, show a success message
                 alertMessage = "Recipe has been added successfully."
+                showAlert = true
+                
+                // Dismiss ViewB to navigate back to ViewA
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                    self.presentationMode.wrappedValue.dismiss()
+                }
             } else {
+                // Handle the error case
                 alertMessage = "Error adding recipe: \(error?.localizedDescription ?? "Unknown error")"
+                showAlert = true
             }
-            showAlert = true
         }
     }
+    
     
 }
 
@@ -154,10 +139,10 @@ func loadAndParseXML() -> [RecipeType] {
 }
 
 
-struct ViewB_Previews: PreviewProvider {
-    static var previews: some View {
-        ViewB().environmentObject(DataManager())
-    }
-}
+//struct ViewB_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ViewB(selectedTab: .constant(0)))
+//    }
+//}
 
 

@@ -8,7 +8,7 @@
 import SwiftUI
 import FirebaseAuth
 
-struct ViewC: View {
+struct Settings: View {
     // Placeholder for user data
     // In a real app, you might fetch this data from your DataManager or directly from Firebase
     @EnvironmentObject var dataManager: DataManager
@@ -78,9 +78,9 @@ struct ViewC: View {
     }
 }
 
-struct ViewC_Previews: PreviewProvider {
+struct Settings_Previews: PreviewProvider {
     static var previews: some View {
-        ViewC().environmentObject(DataManager())
+        Settings().environmentObject(DataManager())
     }
 }
 

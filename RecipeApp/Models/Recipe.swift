@@ -6,12 +6,17 @@
 //
 
 import SwiftUI
+import FirebaseFirestoreSwift
 
-struct Recipe: Identifiable {
-  
-    var ingredients : String
-    var steps : String
-    var id : String
-    var imageURL : String
-    var recipeType : String
+
+struct Recipe: Codable, Identifiable {
+    
+    @DocumentID var id: String?
+    
+    var name: String
+    var type: String
+    var ingredients: String
+    var steps: String
+    var imageUrl: String
+    
 }

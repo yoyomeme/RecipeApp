@@ -16,7 +16,7 @@ struct UpdateUserDetails: View {
     @State var availability: Bool
     @State private var email: String = "" // Add a state variable for email
     @State private var profileURLString: String = "" // Add a state variable for profile URL string
-    
+    @State private var selectedUIImage: UIImage?
     
     var body: some View {
         ZStack {
@@ -32,11 +32,14 @@ struct UpdateUserDetails: View {
                         TextField("Name", text: $profileName)
                         TextField("Email", text: $email) // Add a TextField for email
                         TextField("Profile URL", text: $profileURLString) // Add a TextField for profile URL
+                        ImageSelection(selectedImage: $selectedUIImage)
+                            .padding(.bottom)
                     }
                     Section {
                         Button("Save") {
                             
                             dataManager.updateUserDetails(name: profileName, email: email, profileURL: profileURLString)
+
                             dismiss()
                         }
                     }
