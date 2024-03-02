@@ -4,7 +4,6 @@
   <img src= "https://github.com/yoyomeme/RecipeApp/assets/48572928/5cd3a7cc-585d-4a81-bff2-05bd72941080" />
 </p>
 
-![Screenshot 2024-03-02 at 8 45 06 pm](https://github.com/yoyomeme/RecipeApp/assets/48572928/739b9d48-dff5-4d89-9ea7-e8035638dfc1)
 
 A Recipe application to share your secret recipe.
 
