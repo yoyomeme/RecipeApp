@@ -1,8 +1,9 @@
 
 ## RecipeApp🍳
 <p float="">
-  <img src= "https://github.com/maykhid/min_chat/blob/main/screenshots/header.png?raw=true" />
+  <img src= "https://github.com/yoyomeme/RecipeApp/assets/48572928/5cd3a7cc-585d-4a81-bff2-05bd72941080" />
 </p>
+
 
 A Recipe application to share your secret recipe.
 
@@ -13,11 +14,15 @@ Contributions are highly welcome!
 <a href="https://drive.google.com/file/d/yourGoogleDriveFileID/view?usp=sharing">
   <img src="https://static-00.iconduck.com/assets.00/app-ios-icon-2048x607-djvn0n0l.png" width="200" alt="Download for iOS">
 </a>
+<a href="https://drive.google.com/file/d/yourGoogleDriveFileID/view?usp=sharing">
+  <img src="https://github.com/yoyomeme/RecipeApp/assets/48572928/ca6f2e03-db7a-416e-89ac-0f3efb7d3d9e" width="200" alt="icons">
+</a>
 
 ## 🖼 Screenshots
-| ![Auth Image](https://github.com/maykhid/min_chat/blob/main/screenshots/auth.png?raw=true) | ![No Chat Image](https://github.com/maykhid/min_chat/blob/main/screenshots/no_chat.png?raw=true) | ![Start Conversation Image](https://github.com/maykhid/min_chat/blob/main/screenshots/start_conversation.png?raw=true) |
+
+| ![Auth Image](https://github.com/yoyomeme/RecipeApp/assets/48572928/aaa02090-6a0a-490d-b3d4-38ded54d0aed) | ![No Chat Image](https://github.com/yoyomeme/RecipeApp/assets/48572928/8026ba30-dc33-4a94-86f8-686c55d270da) | ![Start Conversation Image](https://github.com/yoyomeme/RecipeApp/assets/48572928/755af382-1060-4ef6-9f17-79481d2c3bcd) |
 |---|---|---|
-| ![Messages Image](https://github.com/maykhid/min_chat/blob/main/screenshots/messages.png?raw=true) | ![Chat Voice Modal Image](https://github.com/maykhid/min_chat/blob/main/screenshots/chat_voice_modal.png?raw=true) | ![Chat Image](https://github.com/maykhid/min_chat/blob/main/screenshots/chat.png?raw=true) |
+| ![Messages Image](https://github.com/yoyomeme/RecipeApp/assets/48572928/d6602f87-3ed0-495d-9272-72f39b759393) |![Chat Voice Modal Image](https://github.com/yoyomeme/RecipeApp/assets/48572928/f4ca2321-abdd-40bd-be6f-57cb604d6877) | ![Chat Voice Modal Image](https://github.com/yoyomeme/RecipeApp/assets/48572928/d6602f87-3ed0-495d-9272-72f39b759393) | ![Chat Image]() |
 
 
 ## 💫 Features
@@ -38,8 +43,8 @@ Contributions are highly welcome!
 * Testing: Incorporates unit tests and UI tests to detect changes that could break the code design and reduce defects, ensuring code quality.
 
 ## ✨ Requirements
-* iOS 13.0 or later
-* Xcode 13 or later
+* iOS 16.1 or later
+* Xcode 15.2 or later
 
 ## ⚙️ Setup
 1. Clone the project. [here](https://github.com/yoyomeme/RecipeApp.git)
@@ -50,7 +55,7 @@ Contributions are highly welcome!
   
 Troubleshooting:
 
-If you have any issues, please consult the FlutterFire documentation to check the issues or create a new one. 
+If you have any issues, please consult me for further details
 
 ## ⚙️ How to use
 RecipeApp is intuitive and easy to use.
