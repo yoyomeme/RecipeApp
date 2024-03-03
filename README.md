@@ -31,6 +31,12 @@ Contributions are highly welcome!
 * Add new recipes with images, ingredients, and steps
 * Edit and delete existing recipes
 * View detailed recipe information, including ingredients and cooking steps
+
+## Misc Features
+* Haptic on long press an item
+* Dark mode and light mode enabled
+* Pull down refresh enabled
+* Screen size responsive
   
 ## Todo
 * Support for sharing recipes with others
@@ -43,7 +49,7 @@ Contributions are highly welcome!
 * Testing: Incorporates unit tests and UI tests to detect changes that could break the code design and reduce defects, ensuring code quality.
 
 ## ✨ Requirements
-* iOS 16.1 or later
+* iOS 17.0 or later
 * Xcode 15.2 or later
 
 ## ⚙️ Setup
