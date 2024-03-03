@@ -85,7 +85,7 @@ struct AddView: View {
                 Spacer()
                 
                 Button(action: recipeToEdit == nil ? addRecipe : updateRecipe) {
-                    Text("Add Recipe")
+                    Text(recipeToEdit == nil ? "Add Recipe" : "Edit Recipe")
                         .bold()
                         .foregroundColor(.white)
                         .frame(maxWidth: .infinity)

@@ -44,7 +44,7 @@ struct RecipeView: View {
                             .padding()
                             .multilineTextAlignment(.center)
                         VStack(spacing: 30) {
-                            Text(recipe.name)
+                            Text("Recipe Type: \(recipe.type)")
                             VStack(alignment: .leading, spacing: 20) {
                                 Text("Ingredients")
                                     .font(.headline)

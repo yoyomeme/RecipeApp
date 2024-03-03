@@ -120,9 +120,9 @@ struct RecipesView: View {
                         }) {
                             Image(systemName: "plus")
                                 .font(.system(size: 20))
-                                .foregroundColor(.gray)
+                                .foregroundColor(.white)
                                 .padding(1)
-                                .background(.white)
+                                .background(.blue.opacity(0.7))
                                 .cornerRadius(50)
                         }
                         .navigationDestination(isPresented: $showingAddSheet) {

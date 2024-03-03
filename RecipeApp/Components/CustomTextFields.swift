@@ -7,12 +7,13 @@
 
 import SwiftUI
 
+
 struct CustomTextFields: View {
     var title: String
     @Binding var text: String
 
-    // Use this to programmatically focus the TextField
-    @FocusState private var isTextFieldFocused: Bool
+    // Use this to programmatically focus the TextEditor
+    @FocusState private var isTextEditorFocused: Bool
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -20,19 +21,22 @@ struct CustomTextFields: View {
                 .font(.headline)
                 .padding(.top)
             ZStack(alignment: .topLeading) {
-                Rectangle()
-                    .foregroundColor(.white.opacity(0.5))
-                    .border(Color(UIColor.separator), width: 0.5)
-                    .onTapGesture {
-                        // Focus the TextField when the Rectangle is tapped
-                        self.isTextFieldFocused = true
-                    }
+                if text.isEmpty {
+                    Text(title)
+                        .foregroundColor(Color(UIColor.placeholderText)) // Placeholder style
+                        .padding(10)
+                }
                 
-                TextField(title, text: $text)
-                    .textFieldStyle(PlainTextFieldStyle())
-                    .padding(10)
-                    .frame(maxWidth: .infinity, minHeight: 100, alignment: .top) // Make TextField expand fully
-                    .focused($isTextFieldFocused) // SwiftUI 3.0 and later
+                TextEditor(text: $text)
+                    .opacity(text.isEmpty ? 0.25 : 1) // Adjust opacity to hint at the placeholder
+                    //.padding(10)
+                    .frame(maxWidth: .infinity, minHeight: 100, alignment: .top) // Make TextEditor expand fully
+                    .background(Rectangle().foregroundColor(.white.opacity(0.5)).border(Color(UIColor.separator), width: 0.5))
+                    .focused($isTextEditorFocused) // SwiftUI 3.0 and later
+            }
+            .onTapGesture {
+                // Focus the TextEditor when the ZStack is tapped
+                self.isTextEditorFocused = true
             }
             .padding(.horizontal)
         }
@@ -41,7 +45,7 @@ struct CustomTextFields: View {
 
 struct CustomTextFields_Previews: PreviewProvider {
     static var previews: some View {
-        CustomTextFields(title: "Name", text: .constant("John Doe"))
+        CustomTextFields(title: "Description", text: .constant(""))
     }
 }
 
