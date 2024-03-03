@@ -19,21 +19,6 @@ struct RecipeTitleRow: View {
                     .font(.title).bold()
             }
             .frame(maxWidth: .infinity, alignment: .leading)
-            
-           
-
-//            Button(action: {
-//                showingUpdateSheet.toggle()
-//            }) {
-//                Image(systemName: "plus.app")
-//                    .font(.system(size: 35)) // Set the size of the SF Symbol
-//                    .foregroundColor(.gray)
-//                    .padding(5)
-//                    .cornerRadius(50)
-//            }
-//            .sheet(isPresented: $showingUpdateSheet) {
-//                AddRecipeView(isPresented: $showingUpdateSheet)
-//            }
         }
         .padding(.leading)
     }

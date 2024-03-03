@@ -31,7 +31,7 @@ struct AddView: View {
     init(recipeToEdit: Recipe? = nil, dismissParent: (() -> Void)? = nil) {
         self._recipeToEdit = State(initialValue: recipeToEdit)
         self.dismissParent = dismissParent
-        // Initialize other @State properties if needed
+        
     }
 
     
@@ -108,41 +108,49 @@ struct AddView: View {
             recipeTypes = loadAndParseXML()
             if let recipeToEdit = recipeToEdit {
                 // Populate the form with the recipe's details
-                //self.selectedUIImage = recipeToEdit.imageUrl
                 self.ingredients = recipeToEdit.ingredients
                 self.steps = recipeToEdit.steps
                 self.recipeName = recipeToEdit.name
-                
                 selectedRecipeType = recipeTypes.first { $0.name == recipeToEdit.type }
-                // Set selectedRecipeType based on recipeToEdit.type
-                // You might need to find the RecipeType object in recipeTypes that matches recipeToEdit.type
-                // Load image from URL
-                if let imageUrl = URL(string: recipeToEdit.imageUrl),
-                   let imageData = try? Data(contentsOf: imageUrl),
-                   let image = UIImage(data: imageData) {
-                    self.selectedUIImage = image
-                } else {
-                    self.selectedUIImage = nil // Or set to a default placeholder image
+                
+                // Asynchronously load the image from the URL
+                if let imageUrl = URL(string: recipeToEdit.imageUrl) {
+                    URLSession.shared.dataTask(with: imageUrl) { data, response, error in
+                        if let data = data, let image = UIImage(data: data) {
+                            DispatchQueue.main.async {
+                                self.selectedUIImage = image
+                            }
+                        } else {
+                            // Handle errors or set a default image
+                            DispatchQueue.main.async {
+                                self.selectedUIImage = nil // Or set a default placeholder image
+                            }
+                        }
+                    }.resume()
                 }
             }
-            
         }
-//        .onAppear {
-//            recipeTypes = loadAndParseXML()
-//        }
+        .onDisappear {
+            // This ensures the recipes list is refreshed whenever AddView is dismissed
+            dataManager.fetchRecipes()
+        }
     }
-    
+}
+
+
+func loadAndParseXML() -> [RecipeType] {
+    guard let xmlPath = Bundle.main.path(forResource: "recipetypes", ofType: "xml"),
+          let xmlData = try? Data(contentsOf: URL(fileURLWithPath: xmlPath)) else {
+        return []
+    }
+    let parser = RecipeTypeParser()
+    return parser.parseRecipeTypes(xmlData: xmlData)
+}
+
+extension AddView {
     private func addRecipe() {
         isUploading = true // Start uploading
-        //let selectedType = recipeTypes.first { $0.id == selectedRecipeTypeId }
-        
-//        debug
-//        if let selectedType = selectedRecipeType {
-//               print("Selected recipe type: \(selectedType.name)")
-//           } else {
-//               print("No recipe type selected")
-//           }
-        
+
         dataManager.addRecipe(recipeName: recipeName, ingredients: ingredients, steps: steps, recipeType: selectedRecipeType, selectedImage: selectedUIImage) { success, error in
             isUploading = false // End uploading
             if success {
@@ -153,7 +161,7 @@ struct AddView: View {
                 selectedRecipeType = nil
                 selectedUIImage = nil
                 
-                // Optionally, show a success message
+                //show a success message
                 alertMessage = "Recipe has been added successfully."
                 showAlert = true
                 
@@ -180,13 +188,6 @@ struct AddView: View {
 
         isUploading = true // Start uploading
 
-        // Debug print to check the selected recipe type
-        if let selectedType = selectedRecipeType {
-            print("Selected recipe type: \(selectedType.name)")
-        } else {
-            print("No recipe type selected")
-        }
-
         // Call updateRecipe on the dataManager with the correct parameters
         dataManager.updateRecipe(recipeId: recipeId, recipeName: recipeName, ingredients: ingredients, steps: steps, recipeType: selectedRecipeType, selectedImage: selectedUIImage) { success, error in
             self.isUploading = false // End uploading
@@ -198,7 +199,7 @@ struct AddView: View {
                 self.selectedRecipeType = nil
                 self.selectedUIImage = nil
 
-                // Optionally, show a success message
+                // show a success message
                 self.alertMessage = "Recipe has been updated successfully."
                 self.showAlert = true
 
@@ -214,21 +215,6 @@ struct AddView: View {
             }
         }
     }
-
-    
-    
 }
-
-
-func loadAndParseXML() -> [RecipeType] {
-    guard let xmlPath = Bundle.main.path(forResource: "recipetypes", ofType: "xml"),
-          let xmlData = try? Data(contentsOf: URL(fileURLWithPath: xmlPath)) else {
-        return []
-    }
-    let parser = RecipeTypeParser()
-    return parser.parseRecipeTypes(xmlData: xmlData)
-}
-
-
 
 

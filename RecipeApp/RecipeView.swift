@@ -37,9 +37,7 @@ struct RecipeView: View {
                             EmptyView()
                         }
                     }
-                    // .frame(height: 200) // Set a fixed height for the image
-                    
-                    
+
                     VStack(spacing: 30) {
                         Text(recipe.name)
                             .font(.largeTitle)
@@ -63,7 +61,7 @@ struct RecipeView: View {
                         
                     }
                 }
-                //.navigationTitle(recipe.name)
+
                 .navigationBarTitleDisplayMode(.inline)
             }
             VStack {

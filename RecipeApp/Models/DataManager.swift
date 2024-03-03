@@ -12,6 +12,7 @@ import FirebaseFirestoreSwift
 import StoreKit
 import FirebaseAuth
 import FirebaseStorage
+import NaturalLanguage
 
 class DataManager: ObservableObject {
     
@@ -61,29 +62,82 @@ class DataManager: ObservableObject {
         
     }
     
-    func updateUserDetails(name: String, email: String, profileURL: String) {
+    func updateUserDetails(name: String, email: String, profileImage: UIImage?, completion: @escaping (Bool, Error?) -> Void) {
         guard let uid = Auth.auth().currentUser?.uid else {
             print("User is not logged in")
+            completion(false, NSError(domain: "AppErrorDomain", code: -1, userInfo: [NSLocalizedDescriptionKey: "User not logged in."]))
             return
         }
         
-        let userDocument = db.collection("users").document(uid)
-        
-        userDocument.updateData([
+        // If a profile image is selected for updating
+        if let selectedImage = profileImage {
+            // Calculate the target size and resize the image
+            let originalSize = selectedImage.size
+            let targetSize = calculateTargetSize(for: originalSize)
+            guard let resizedImage = resizeImage(selectedImage, targetSize: targetSize) else {
+                completion(false, NSError(domain: "AppErrorDomain", code: -2, userInfo: [NSLocalizedDescriptionKey: "Failed to resize image."]))
+                return
+            }
+            
+            // Convert the resized image to JPEG data
+            guard let imageData = resizedImage.jpegData(compressionQuality: 0.75) else {
+                completion(false, NSError(domain: "AppErrorDomain", code: -3, userInfo: [NSLocalizedDescriptionKey: "Image data could not be converted."]))
+                return
+            }
+            
+            // Define a unique name for the image
+            let imageName = UUID().uuidString
+            let storageRef = Storage.storage().reference().child("profileImages/\(imageName).jpg")
+            
+            // Upload the image data
+            storageRef.putData(imageData, metadata: nil) { metadata, error in
+                guard error == nil else {
+                    completion(false, error)
+                    return
+                }
+                
+                // Fetch the download URL of the uploaded image
+                storageRef.downloadURL { url, error in
+                    guard let downloadURL = url else {
+                        completion(false, error)
+                        return
+                    }
+                    
+                    // Proceed to update the user details with the new image URL in Firestore
+                    self.updateUserDocument(uid: uid, name: name, email: email, profileURL: downloadURL.absoluteString, completion: completion)
+                }
+            }
+        } else {
+            // If no new image is selected, update the user details without changing the profile URL
+            updateUserDocument(uid: uid, name: name, email: email, profileURL: nil, completion: completion)
+        }
+    }
+
+    // Helper function to update the Firestore document
+    private func updateUserDocument(uid: String, name: String, email: String, profileURL: String?, completion: @escaping (Bool, Error?) -> Void) {
+        var userData: [String: Any] = [
             "userName": name,
-            "email": email,
-            "profileURL": profileURL
-        ]) { error in
+            "email": email
+        ]
+        
+        // If a new profile URL is provided, include it in the update
+        if let profileURL = profileURL {
+            userData["profileURL"] = profileURL
+        }
+        
+        let userDocument = db.collection("users").document(uid)
+        userDocument.updateData(userData) { error in
             if let error = error {
                 print("Error updating document: \(error)")
+                completion(false, error)
             } else {
                 print("Document successfully updated")
-                // Optionally, refresh the currentUser data
-                self.fetchCurrentUser()
+                completion(true, nil)
             }
         }
     }
-    
+
+
     
     // Function to upload image to Firebase Storage and save recipe details to Firestore
     func addRecipe(recipeName: String, ingredients: String, steps: String, recipeType: RecipeType?, selectedImage: UIImage?, completion: @escaping (Bool, Error?) -> Void) {
@@ -292,5 +346,38 @@ class DataManager: ObservableObject {
             }
         }
     }
+    
+    func loadXMLData() -> Data? {
+            // Assuming the XML file name is "recipetypes.xml" and it's included in the main bundle
+            guard let fileURL = Bundle.main.url(forResource: "recipetypes", withExtension: "xml") else {
+                print("XML file not found")
+                return nil
+            }
+            return try? Data(contentsOf: fileURL)
+        }
+    
+    func fetchRecipeSearch(queryField: String, searchTerm: String, completion: @escaping ([Recipe]?, Error?) -> Void) {
+        var query: Query = db.collection("recipes")
+        
+        if !searchTerm.isEmpty {
+            query = query.whereField(queryField, isGreaterThanOrEqualTo: searchTerm)
+                          .whereField(queryField, isLessThanOrEqualTo: searchTerm + "\u{f8ff}")
+        }
+        
+        // Perform the query
+        query.getDocuments { (querySnapshot, error) in
+            if let error = error {
+                print("Error getting documents: \(error)")
+                completion(nil, error)
+            } else {
+                let recipes = querySnapshot?.documents.compactMap { document -> Recipe? in
+                    try? document.data(as: Recipe.self)
+                }
+                completion(recipes, nil)
+            }
+        }
+    }
+
+    
     
 }//end of code

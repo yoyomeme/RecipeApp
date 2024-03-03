@@ -20,11 +20,19 @@ struct RecipesView: View {
     
     @EnvironmentObject var dataManager: DataManager
     
+    @State private var searchText = ""
+    
+    @State private var searchTermBtn = ""
+    
+    @State private var recipeTypes: [String] = [] // Example data
+
+    @State private var suggestionSelected = false
+
+    
     //Define how many columns for the grid
     let columns: [GridItem] = [
         GridItem(.flexible(), spacing: 16),
         GridItem(.flexible(), spacing: 16)
-        
     ]
     
     var body: some View {
@@ -39,27 +47,6 @@ struct RecipesView: View {
                 
                 ScrollView {
                     VStack {
-                        HStack {
-                            RecipeTitleRow(title: "Recipe")
-                            Spacer()
-                            SearchBar()
-                            Spacer()
-                            
-                            Button(action: {
-                                showingAddSheet = true
-                            }) {
-                                Image(systemName: "plus.app")
-                                    .font(.system(size: 24))
-                                    .foregroundColor(.gray)
-                                    .padding(10)
-                                    .background(.white)
-                                    .cornerRadius(50)
-                            }
-                            .navigationDestination(isPresented: $showingAddSheet) {
-                                AddView()
-                            }
-                        }
-                        
                         LazyVGrid(columns: columns, spacing: 16) {
                             ForEach(dataManager.recipes) { recipe in
                                 RecipeCard(recipeName: recipe.name, imageURL: recipe.imageUrl)
@@ -67,14 +54,22 @@ struct RecipesView: View {
                                         // Handle long press
                                         self.recipeIdToDelete = recipe.id
                                         self.showingDeleteAlert = true
+                                        // Trigger start haptic feedback
+                                        UINotificationFeedbackGenerator().notificationOccurred(.success)
                                     }
+                                    .simultaneousGesture(
+                                        DragGesture().onEnded { _ in
+                                            // Handle drag end or long press end
+                                            // Trigger end haptic feedback
+                                            UINotificationFeedbackGenerator().notificationOccurred(.warning)
+                                        }
+                                    )
                                     .highPriorityGesture(
                                         TapGesture().onEnded {
                                             print("Recipe selected: \(recipe.name)")
                                             self.selectedRecipe = recipe
                                         }
                                     )
-                                
                             }
                             .alert(isPresented: $showingDeleteAlert) {
                                 Alert(
@@ -102,24 +97,102 @@ struct RecipesView: View {
                     }
                     .padding()
                 }
-                //                .navigationDestination(for: Recipe.self) { recipe in
-                //                                RecipeView(recipe: recipe)
-                //                            }
             }
             .onAppear {
                 // Fetch recipes when the view appears
                 dataManager.fetchRecipes()
+                loadRecipeTypes()
+            }
+            .refreshable { // Add the .refreshable modifier
+                dataManager.fetchRecipes()
+            }
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    HStack {
+                        Text("Recipes")
+                            .font(.system(size: 30))
+                            .fontWeight(.heavy)
+                    
+                        Spacer()
+                        Button(action: {
+                            showingAddSheet = true
+                        }) {
+                            Image(systemName: "plus")
+                                .font(.system(size: 20))
+                                .foregroundColor(.gray)
+                                .padding(1)
+                                .background(.white)
+                                .cornerRadius(50)
+                        }
+                        .navigationDestination(isPresented: $showingAddSheet) {
+                            AddView()
+                        }
+                    }
+                    .frame(width: UIScreen.main.bounds.width - 60)
+                    .padding(.bottom)
+                }
+            }
+            .searchable(text: $searchText) {
+                ForEach(searchResults, id: \.self) { result in
+                    Text("Are you looking for \(result)?").searchCompletion(result)
+                        .onTapGesture {
+                            self.searchText = result
+                            self.suggestionSelected = true
+                        }
+                }
+            }
+            .onChange(of: searchText) { newValue in
+                // Reset suggestionSelected if the user modifies the search text
+                if !suggestionSelected && !newValue.isEmpty {
+                    suggestionSelected = false
+                }
+
+                // Determine the query field based on whether a suggestion was selected
+                let queryField = suggestionSelected ? "type" : "name"
+                
+                // Perform the search
+                dataManager.fetchRecipeSearch(queryField: queryField, searchTerm: newValue) { (recipes, error) in
+                    if let recipes = recipes {
+                        // Update the UI with the search results
+                        self.dataManager.recipes = recipes
+                    } else if let error = error {
+                        // Handle the error
+                        print("Error searching recipes: \(error.localizedDescription)")
+                    }
+                    // Reset suggestionSelected for the next search
+                    self.suggestionSelected = false
+                }
             }
         }
-        //        .navigationDestination(isPresented: $navigateToRecipeView) {
-        //
-        //
-        //        (item: $selectedRecipe) { recipe in
-        //             RecipeView(recipe: recipe)
-        //        }
         .sheet(item: $selectedRecipe) { recipe in
             RecipeView(recipe: recipe)
         }
+    }
+    
+    var searchResults: [String] {
+        if searchText.isEmpty {
+            return recipeTypes
+        } else {
+            return recipeTypes.filter { $0.localizedCaseInsensitiveContains(searchText) }
+        }
+    }
+    
+    func loadRecipeTypes() {
+        if let xmlData = loadXMLData() {
+            let parser = RecipeTypeParser()
+            let types = parser.parseRecipeTypes(xmlData: xmlData)
+            self.recipeTypes = types.map { $0.name }
+        }
+    }
+    
+    func loadXMLData() -> Data? {
+        
+        guard let fileURL = Bundle.main.url(forResource: "recipetypes", withExtension: "xml") else {
+            print("XML file not found")
+            return nil
+        }
+        return try? Data(contentsOf: fileURL)
     }
 }
 
@@ -128,3 +201,5 @@ struct RecipesView_Previews: PreviewProvider {
         RecipesView().environmentObject(DataManager())
     }
 }
+
+

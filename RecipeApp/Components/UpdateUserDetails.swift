@@ -15,8 +15,10 @@ struct UpdateUserDetails: View {
     @State var profileName: String
     @State var availability: Bool
     @State private var email: String = "" // Add a state variable for email
-    @State private var profileURLString: String = "" // Add a state variable for profile URL string
+    @State private var profileURLString: UIImage? // Add a state variable for profile URL string
     @State private var selectedUIImage: UIImage?
+    @State private var alertMessage = ""
+    @State private var showAlert = false
     
     var body: some View {
         ZStack {
@@ -26,43 +28,83 @@ struct UpdateUserDetails: View {
                 endPoint: .bottomTrailing
             )
             .ignoresSafeArea()
-            NavigationView {
-                Form {
-                    Section(header: Text("Profile")) {
-                        TextField("Name", text: $profileName)
-                        TextField("Email", text: $email) // Add a TextField for email
-                        TextField("Profile URL", text: $profileURLString) // Add a TextField for profile URL
-                        ImageSelection(selectedImage: $selectedUIImage)
-                            .padding(.bottom)
+            
+            ScrollView {
+                VStack {
+                    RecipeTitleRow(title: "Profile")
+                        .padding(.top)
+                    
+                    // ImageSelection component for selecting or capturing an image
+                    ImageSelection(selectedImage: $selectedUIImage)
+                        .padding(.bottom)
+                    
+                    CustomTextFields(title: "Name", text: $profileName)
+                    CustomTextFields(title: "Email", text: $email)
+                    
+                }
+                .padding()
+                
+                Spacer()
+                
+                Button(action: {
+                    guard let selectedImage = selectedUIImage else {
+                        // Handle the case where no image is selected (if that's acceptable in your app logic)
+                        print("No profile image selected")
+                        return
                     }
-                    Section {
-                        Button("Save") {
-                            
-                            dataManager.updateUserDetails(name: profileName, email: email, profileURL: profileURLString)
-
-                            dismiss()
+                    
+                    dataManager.updateUserDetails(name: profileName, email: email, profileImage: selectedImage) { success, error in
+                        if success {
+                            // Handle success, e.g., show an alert or dismiss the view
+                            alertMessage = "User details updated successfully."
+                            showAlert = true
+                            dismiss() // dismiss the view upon successful update
+                        } else if let error = error {
+                            // Handle error, e.g., show an error message
+                            alertMessage = "Error updating user details: \(error.localizedDescription)"
+                            showAlert = true
                         }
                     }
+                }) {
+                    Text("Update Details")
+                        .bold()
+                        .foregroundColor(.white)
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color.blue)
+                        .cornerRadius(10)
                 }
-                .navigationTitle("Update Profile")
-                .toolbar {
-                    ToolbarItem(placement: .cancellationAction) {
-                        Button("Cancel") {
-                            dismiss()
+                .padding()
+                
+            }
+            .onAppear {
+                // Initialize the form with current user details
+              
+                if let currentUser = dataManager.currentUser {
+                    email = currentUser.email
+                }
+                
+                if let profileImageUrl = profileUrl {
+                    URLSession.shared.dataTask(with: profileImageUrl) { data, response, error in
+                        if let data = data, let image = UIImage(data: data) {
+                            DispatchQueue.main.async {
+                                self.selectedUIImage = image
+                            }
+                        } else {
+                            // Handle errors or set a default image
+                            DispatchQueue.main.async {
+                                self.selectedUIImage = nil // Or set a default placeholder image
+                            }
                         }
-                    }
-                }
-                .onAppear {
-                    // Initialize the form with current user details
-                    if let profileUrl = profileUrl {
-                        profileURLString = profileUrl.absoluteString
-                    }
-                    if let currentUser = dataManager.currentUser {
-                        email = currentUser.email
-                    }
+                    }.resume()
                 }
             }
+            
+            
+        }
+        .alert(isPresented: $showAlert) {
+            Alert(title: Text("Notification"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
         }
     }
-
+    
 }
