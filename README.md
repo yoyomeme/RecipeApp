@@ -18,24 +18,15 @@ Contributions are highly welcome!
   <img src="https://github.com/yoyomeme/RecipeApp/assets/48572928/ca6f2e03-db7a-416e-89ac-0f3efb7d3d9e" width="200" alt="icons">
 </a>
 
-![Screenshot 2024-03-03 at 6 09 47 pm](https://github.com/yoyomeme/RecipeApp/assets/48572928/ef65ccdb-a9a8-45f9-880d-33907cc32988)
-![Screenshot 2024-03-03 at 6 10 01 pm](https://github.com/yoyomeme/RecipeApp/assets/48572928/687736ce-666e-4ef1-ab36-11c61b4edc8d)
-
-![Screenshot 2024-03-03 at 6 10 45 pm](https://github.com/yoyomeme/RecipeApp/assets/48572928/7f8b613b-7b39-40c4-8135-d45279f7db0e)
-![Screenshot 2024-03-03 at 6 10 53 pm](https://github.com/yoyomeme/RecipeApp/assets/48572928/47ef8977-3deb-4ebb-a403-aeb77e94a3a5)
-
-![Screenshot 2024-03-03 at 6 11 11 pm](https://github.com/yoyomeme/RecipeApp/assets/48572928/042d1d5d-2bec-4603-9394-2b29b6b70517)
-![Screenshot 2024-03-03 at 6 11 20 pm](https://github.com/yoyomeme/RecipeApp/assets/48572928/cf78d0e0-3f4f-4450-83c5-609d36d31298)
-
 
 
 ## 🖼 Screenshots
 
-| ![Auth Image](https://github.com/yoyomeme/RecipeApp/assets/48572928/aaa02090-6a0a-490d-b3d4-38ded54d0aed) | ![Image](https://github.com/yoyomeme/RecipeApp/assets/48572928/ef65ccdb-a9a8-45f9-880d-33907cc32988) | ![Image](https://github.com/yoyomeme/RecipeApp/assets/48572928/687736ce-666e-4ef1-ab36-11c61b4edc8d) |
+| ![Auth Image](https://github.com/yoyomeme/RecipeApp/assets/48572928/aaa02090-6a0a-490d-b3d4-38ded54d0aed) |![Image](https://github.com/yoyomeme/RecipeApp/assets/48572928/6f2bed1d-10dc-4882-bc3d-cfbe92f22a8a) | ![Image](https://github.com/yoyomeme/RecipeApp/assets/48572928/ef65ccdb-a9a8-45f9-880d-33907cc32988) |  
 |---|---|---|
-| ![Image](https://github.com/yoyomeme/RecipeApp/assets/48572928/7f8b613b-7b39-40c4-8135-d45279f7db0e) |![Image](https://github.com/yoyomeme/RecipeApp/assets/48572928/f4ca2321-abdd-40bd-be6f-57cb604d6877) | ![Image](https://github.com/yoyomeme/RecipeApp/assets/48572928/47ef8977-3deb-4ebb-a403-aeb77e94a3a5) | ![Image]() |
+|  ![Image](https://github.com/yoyomeme/RecipeApp/assets/48572928/687736ce-666e-4ef1-ab36-11c61b4edc8d) | ![Image](https://github.com/yoyomeme/RecipeApp/assets/48572928/7f8b613b-7b39-40c4-8135-d45279f7db0e) |![Image](https://github.com/yoyomeme/RecipeApp/assets/48572928/f4ca2321-abdd-40bd-be6f-57cb604d6877) |
 |---|---|---|
-| ![Image](https://github.com/yoyomeme/RecipeApp/assets/48572928/042d1d5d-2bec-4603-9394-2b29b6b70517) |![Image](https://github.com/yoyomeme/RecipeApp/assets/48572928/cf78d0e0-3f4f-4450-83c5-609d36d31298) | ![Image]() | ![Image]() |
+| ![Image](https://github.com/yoyomeme/RecipeApp/assets/48572928/47ef8977-3deb-4ebb-a403-aeb77e94a3a5) | ![Image](https://github.com/yoyomeme/RecipeApp/assets/48572928/042d1d5d-2bec-4603-9394-2b29b6b70517) |![Image](https://github.com/yoyomeme/RecipeApp/assets/48572928/cf78d0e0-3f4f-4450-83c5-609d36d31298) |
 
 
 ## 💫 Features
