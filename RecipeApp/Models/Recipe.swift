@@ -19,4 +19,6 @@ struct Recipe: Codable, Identifiable {
     var steps: String
     var imageUrl: String
     
+    var timeStamp: Date?
+    
 }

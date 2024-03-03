@@ -129,7 +129,8 @@ class DataManager: ObservableObject {
                     "type": recipeType?.name ?? "",
                     "ingredients": ingredients,
                     "steps": steps,
-                    "imageUrl": downloadURL.absoluteString
+                    "imageUrl": downloadURL.absoluteString,
+                    "timestamp": FieldValue.serverTimestamp()
                 ]
                 
                 db.collection("recipes").addDocument(data: recipeData) { error in
@@ -142,6 +143,79 @@ class DataManager: ObservableObject {
             }
         }
     }
+    
+    // Function to update recipe details in Firestore and optionally update the image in Firebase Storage
+    func updateRecipe(recipeId: String, recipeName: String, ingredients: String, steps: String, recipeType: RecipeType?, selectedImage: UIImage?, completion: @escaping (Bool, Error?) -> Void) {
+        // Check if an image is selected for updating
+        if let selectedImage = selectedImage {
+            // Calculate the target size and resize the image
+            let originalSize = selectedImage.size
+            let targetSize = calculateTargetSize(for: originalSize)
+            guard let resizedImage = resizeImage(selectedImage, targetSize: targetSize) else {
+                completion(false, NSError(domain: "AppErrorDomain", code: -2, userInfo: [NSLocalizedDescriptionKey: "Failed to resize image."]))
+                return
+            }
+            
+            // Convert the resized image to JPEG data
+            guard let imageData = resizedImage.jpegData(compressionQuality: 0.75) else {
+                completion(false, NSError(domain: "AppErrorDomain", code: -3, userInfo: [NSLocalizedDescriptionKey: "Image data could not be converted."]))
+                return
+            }
+            
+            // Define a unique name for the image if you're replacing the existing one or use the existing name
+            let imageName = UUID().uuidString
+            let storageRef = Storage.storage().reference().child("recipeImages/\(imageName).jpg")
+            
+            // Upload the image data
+            storageRef.putData(imageData, metadata: nil) { metadata, error in
+                guard error == nil else {
+                    completion(false, error)
+                    return
+                }
+                
+                // Fetch the download URL of the uploaded image
+                storageRef.downloadURL { url, error in
+                    guard let downloadURL = url else {
+                        completion(false, error)
+                        return
+                    }
+                    
+                    // Update the recipe details along with the new image URL in Firestore
+                    self.updateRecipeDocument(recipeId: recipeId, recipeName: recipeName, ingredients: ingredients, steps: steps, recipeType: recipeType, imageUrl: downloadURL.absoluteString, completion: completion)
+                }
+            }
+        } else {
+            // If no new image is selected, update the recipe details without changing the image URL
+            updateRecipeDocument(recipeId: recipeId, recipeName: recipeName, ingredients: ingredients, steps: steps, recipeType: recipeType, imageUrl: nil, completion: completion)
+        }
+    }
+
+    // Helper function to update the Firestore document
+    func updateRecipeDocument(recipeId: String, recipeName: String, ingredients: String, steps: String, recipeType: RecipeType?, imageUrl: String?, completion: @escaping (Bool, Error?) -> Void) {
+        let db = Firestore.firestore()
+        let documentRef = db.collection("recipes").document(recipeId)
+        
+        var recipeData: [String: Any] = [
+            "name": recipeName,
+            "type": recipeType?.name ?? "",
+            "ingredients": ingredients,
+            "steps": steps
+        ]
+        
+        // If a new image URL is provided, include it in the update
+        if let imageUrl = imageUrl {
+            recipeData["imageUrl"] = imageUrl
+        }
+        
+        documentRef.updateData(recipeData) { error in
+            if let error = error {
+                completion(false, error)
+            } else {
+                completion(true, nil)
+            }
+        }
+    }
+
     
     func resizeImage(_ image: UIImage, targetSize: CGSize) -> UIImage? {
         let rendererFormat = UIGraphicsImageRendererFormat.default()
@@ -168,7 +242,8 @@ class DataManager: ObservableObject {
     
     // Function to fetch recipes from Firestore
     func fetchRecipes() {
-        db.collection("recipes").getDocuments { (querySnapshot, error) in
+        //db.collection("recipes").getDocuments
+        db.collection("recipes").order(by: "timestamp", descending: true).getDocuments { (querySnapshot, error) in
             if let error = error {
                 print("Error getting recipes: \(error.localizedDescription)")
             } else {

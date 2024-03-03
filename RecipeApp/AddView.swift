@@ -14,16 +14,25 @@ struct AddView: View {
     @State private var steps: String = ""
     @State private var recipeName: String = ""
     @State private var selectedRecipeType: RecipeType?
+    @State private var selectedRecipeTypeId: Int?
     @State private var recipeTypes: [RecipeType] = []
-    
-    @State private var showAlert = false // State to manage alert visibility
-    @State private var alertMessage = "" // State to manage alert message
+    @State private var showAlert = false
+    @State private var alertMessage = ""
     @State private var isUploading = false
+    @State private var recipeToEdit: Recipe?
     
     @Environment(\.presentationMode) var presentationMode
     
     @EnvironmentObject var dataManager: DataManager
     
+    @Environment(\.dismiss) private var dismissSheet // For iOS 15 and later
+        var dismissParent: (() -> Void)?
+    
+    init(recipeToEdit: Recipe? = nil, dismissParent: (() -> Void)? = nil) {
+        self._recipeToEdit = State(initialValue: recipeToEdit)
+        self.dismissParent = dismissParent
+        // Initialize other @State properties if needed
+    }
 
     
     var body: some View {
@@ -42,9 +51,9 @@ struct AddView: View {
             }
             ScrollView {
                 VStack {
-                    RecipeTitleRow(title: "Add Recipe")
-                    // ImageSelection component for selecting or capturing an image
+                    RecipeTitleRow(title: recipeToEdit == nil ? "Add Recipe" : "Edit Recipe")
                     
+                    // ImageSelection component for selecting or capturing an image
                     ImageSelection(selectedImage: $selectedUIImage)
                         .padding(.bottom) 
                     
@@ -57,11 +66,14 @@ struct AddView: View {
                             .padding(.top)
                         Picker("Select a recipe type", selection: $selectedRecipeType) {
                             ForEach(recipeTypes, id: \.self) { recipeType in
-                                Text(recipeType.name).tag(recipeType)
+                                Text(recipeType.name).tag(recipeType as RecipeType?)
                             }
                         }
                         .pickerStyle(WheelPickerStyle())
                         .padding(.horizontal)
+                        .onChange(of: selectedRecipeType) { newValue in
+                            print("Recipe type changed to: \(newValue?.name ?? "nil")")
+                        }
                     }
                     
                     CustomTextFields(title: "Ingredients", text: $ingredients)
@@ -72,7 +84,7 @@ struct AddView: View {
                 
                 Spacer()
                 
-                Button(action: addRecipe) {
+                Button(action: recipeToEdit == nil ? addRecipe : updateRecipe) {
                     Text("Add Recipe")
                         .bold()
                         .foregroundColor(.white)
@@ -94,11 +106,43 @@ struct AddView: View {
         .navigationBarTitleDisplayMode(.inline)
         .onAppear {
             recipeTypes = loadAndParseXML()
+            if let recipeToEdit = recipeToEdit {
+                // Populate the form with the recipe's details
+                //self.selectedUIImage = recipeToEdit.imageUrl
+                self.ingredients = recipeToEdit.ingredients
+                self.steps = recipeToEdit.steps
+                self.recipeName = recipeToEdit.name
+                
+                selectedRecipeType = recipeTypes.first { $0.name == recipeToEdit.type }
+                // Set selectedRecipeType based on recipeToEdit.type
+                // You might need to find the RecipeType object in recipeTypes that matches recipeToEdit.type
+                // Load image from URL
+                if let imageUrl = URL(string: recipeToEdit.imageUrl),
+                   let imageData = try? Data(contentsOf: imageUrl),
+                   let image = UIImage(data: imageData) {
+                    self.selectedUIImage = image
+                } else {
+                    self.selectedUIImage = nil // Or set to a default placeholder image
+                }
+            }
+            
         }
+//        .onAppear {
+//            recipeTypes = loadAndParseXML()
+//        }
     }
     
     private func addRecipe() {
         isUploading = true // Start uploading
+        //let selectedType = recipeTypes.first { $0.id == selectedRecipeTypeId }
+        
+//        debug
+//        if let selectedType = selectedRecipeType {
+//               print("Selected recipe type: \(selectedType.name)")
+//           } else {
+//               print("No recipe type selected")
+//           }
+        
         dataManager.addRecipe(recipeName: recipeName, ingredients: ingredients, steps: steps, recipeType: selectedRecipeType, selectedImage: selectedUIImage) { success, error in
             isUploading = false // End uploading
             if success {
@@ -113,9 +157,12 @@ struct AddView: View {
                 alertMessage = "Recipe has been added successfully."
                 showAlert = true
                 
+                dismissSheet()
+                
                 // Dismiss ViewB to navigate back to ViewA
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                    self.presentationMode.wrappedValue.dismiss()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    //self.presentationMode.wrappedValue.dismiss()
+                    dismissParent?()
                 }
             } else {
                 // Handle the error case
@@ -124,6 +171,50 @@ struct AddView: View {
             }
         }
     }
+    
+    private func updateRecipe() {
+        guard let recipeId = recipeToEdit?.id else {
+            print("Error: Recipe ID is missing")
+            return
+        }
+
+        isUploading = true // Start uploading
+
+        // Debug print to check the selected recipe type
+        if let selectedType = selectedRecipeType {
+            print("Selected recipe type: \(selectedType.name)")
+        } else {
+            print("No recipe type selected")
+        }
+
+        // Call updateRecipe on the dataManager with the correct parameters
+        dataManager.updateRecipe(recipeId: recipeId, recipeName: recipeName, ingredients: ingredients, steps: steps, recipeType: selectedRecipeType, selectedImage: selectedUIImage) { success, error in
+            self.isUploading = false // End uploading
+            if success {
+                // Clear the text fields after successful upload
+                self.recipeName = ""
+                self.ingredients = ""
+                self.steps = ""
+                self.selectedRecipeType = nil
+                self.selectedUIImage = nil
+
+                // Optionally, show a success message
+                self.alertMessage = "Recipe has been updated successfully."
+                self.showAlert = true
+
+                // Dismiss the sheet and optionally the parent view
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    self.dismissSheet()
+                    self.dismissParent?()
+                }
+            } else {
+                // Handle the error case
+                self.alertMessage = "Error updating recipe: \(error?.localizedDescription ?? "Unknown error")"
+                self.showAlert = true
+            }
+        }
+    }
+
     
     
 }
@@ -139,10 +230,5 @@ func loadAndParseXML() -> [RecipeType] {
 }
 
 
-//struct ViewB_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ViewB(selectedTab: .constant(0)))
-//    }
-//}
 
 

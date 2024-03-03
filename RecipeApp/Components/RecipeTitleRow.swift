@@ -20,7 +20,7 @@ struct RecipeTitleRow: View {
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             
-            Spacer()
+           
 
 //            Button(action: {
 //                showingUpdateSheet.toggle()
@@ -35,7 +35,7 @@ struct RecipeTitleRow: View {
 //                AddRecipeView(isPresented: $showingUpdateSheet)
 //            }
         }
-        .padding()
+        .padding(.leading)
     }
 }
 

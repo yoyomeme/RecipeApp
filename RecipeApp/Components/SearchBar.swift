@@ -13,7 +13,7 @@ struct SearchBar: View {
     var body: some View {
         HStack{
             CustomTextField(placeholder: Text("Search ... ").font(.system(size: 14)), text: $message)
-                //.frame(width: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/)
+                .frame(width: 150)
             
             Button{
                 

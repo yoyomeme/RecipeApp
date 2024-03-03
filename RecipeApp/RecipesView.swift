@@ -68,11 +68,12 @@ struct RecipesView: View {
                                         self.recipeIdToDelete = recipe.id
                                         self.showingDeleteAlert = true
                                     }
-                                    .simultaneousGesture(TapGesture().onEnded {
-                                        print("Recipe selected: \(recipe.name)")
-                                        // Handle tap
-                                        self.selectedRecipe = recipe
-                                    })
+                                    .highPriorityGesture(
+                                        TapGesture().onEnded {
+                                            print("Recipe selected: \(recipe.name)")
+                                            self.selectedRecipe = recipe
+                                        }
+                                    )
                                 
                             }
                             .alert(isPresented: $showingDeleteAlert) {
@@ -101,21 +102,21 @@ struct RecipesView: View {
                     }
                     .padding()
                 }
-//                .navigationDestination(for: Recipe.self) { recipe in
-//                                RecipeView(recipe: recipe)
-//                            }
+                //                .navigationDestination(for: Recipe.self) { recipe in
+                //                                RecipeView(recipe: recipe)
+                //                            }
             }
             .onAppear {
                 // Fetch recipes when the view appears
                 dataManager.fetchRecipes()
             }
         }
-//        .navigationDestination(isPresented: $navigateToRecipeView) {
-//           
-//        
-//        (item: $selectedRecipe) { recipe in
-//             RecipeView(recipe: recipe)
-//        }
+        //        .navigationDestination(isPresented: $navigateToRecipeView) {
+        //
+        //
+        //        (item: $selectedRecipe) { recipe in
+        //             RecipeView(recipe: recipe)
+        //        }
         .sheet(item: $selectedRecipe) { recipe in
             RecipeView(recipe: recipe)
         }
