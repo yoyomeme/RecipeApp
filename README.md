@@ -22,7 +22,7 @@ Contributions are highly welcome!
 
 ## 🖼 Screenshots
 
-| ![Auth Image](https://github.com/yoyomeme/RecipeApp/assets/48572928/aaa02090-6a0a-490d-b3d4-38ded54d0aed) |![Image](https://github.com/yoyomeme/RecipeApp/assets/48572928/6f2bed1d-10dc-4882-bc3d-cfbe92f22a8a) | ![Image](https://github.com/yoyomeme/RecipeApp/assets/48572928/ef65ccdb-a9a8-45f9-880d-33907cc32988) |  
+| ![Auth Image](https://github.com/yoyomeme/RecipeApp/assets/48572928/aaa02090-6a0a-490d-b3d4-38ded54d0aed) |![Image](https://github.com/yoyomeme/RecipeApp/assets/48572928/ef65ccdb-a9a8-45f9-880d-33907cc32988) | ![Image](https://github.com/yoyomeme/RecipeApp/assets/48572928/9f038819-56c1-4c9b-a76c-f65159048c6b) |  
 |---|---|---|
 |  ![Image](https://github.com/yoyomeme/RecipeApp/assets/48572928/687736ce-666e-4ef1-ab36-11c61b4edc8d) | ![Image](https://github.com/yoyomeme/RecipeApp/assets/48572928/7f8b613b-7b39-40c4-8135-d45279f7db0e) |![Image](https://github.com/yoyomeme/RecipeApp/assets/48572928/f4ca2321-abdd-40bd-be6f-57cb604d6877) |
 |---|---|---|
