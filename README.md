@@ -37,7 +37,7 @@ Contributions are highly welcome!
 * View detailed recipe information, including ingredients and cooking steps
 
 ## Misc Features
-* Haptic on long press an item
+* Haptic on long press to delete an item
 * Dark mode and light mode enabled
 * Pull down refresh enabled
 * Screen size responsive
