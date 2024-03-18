@@ -64,6 +64,8 @@ Contributions are highly welcome!
 3. Build and run the project on your preferred simulator or real device.
   
 Troubleshooting:
+* For error like this "Xcode 15.3b3: app installation failed due to missing Info.plist " refer to this solution "https://github.com/firebase/firebase-ios-sdk/issues/12390"
+
 
 If you have any issues, please consult me for further details
 
